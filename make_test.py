@@ -74,6 +74,7 @@ print " - _test_input_path = {}".format (_test_input_path)
 print " - _test_output_path = {}".format (_test_output_path)
 print " - _executable_path = {}".format (_executable_path)
 
+# Generate values and write to files
 for i in range (0, _number_of_tests):
 	#
 	print ""

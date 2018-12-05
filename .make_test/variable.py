@@ -3,27 +3,27 @@ def replace_string (s):
 	return s.replace ("\\n", "\n").replace ("\\'", "\'").replace ("\\\"", "\"").replace ("\\s", " ").replace ("\\\\", "\\")
 def is_digit (c):
 	return ord (c) >= ord ("0") and ord (c) <= ord ("9")
-class var:
+class var: # represents a variable, int, float, char, string, concatenate or multiply
 	_name = "default"
 	_max = 9223372036854775807 # 2**63 - 1
 	_min = -9223372036854775807 # -2**63 + 1
 	_type = "int"
-	_value = []
-	_str_value = ""
-	_prefix = ""
-	_suffix = ""
-	_only_one = False
-	_first_str = ""
-	_second_str = ""
-	_multiply = ""
+	_value = [] # coming soon
+	_str_value = "" # value for string variable
+	_prefix = "" # put before the value
+	_suffix = "" # sput after the value
+	_only_one = False # coming soon
+	_first_str = "" # first string for concatenating and for multiplying
+	_second_str = "" # second string for concatenating
+	_multiply = "" # number to multiply, must be a number or a int variable
 	_show_information = False # show information for variable before randomizing
 	def to_string(self):
 		if self._type == "int" or self._type == "float" or self._type == "char":
 			return self._name + " in [" + str(self._min) + ", " + str(self._max) + "] prefix = '" + self._prefix + "' suffix = '" + self._suffix + "'"
 		return self._name + " = '" + self._str_value + "' prefix = '" + self._prefix + "' suffix = '" + self._suffix + "'"
-class vars:
+class vars: # variables manager
 	_var = {}
-	def get(self, _var_name, _sys_argv):
+	def get(self, _var_name, _sys_argv): # get a new random value of variable without prefix or suffix
 		#print "_var_name = {}".format(_var_name)
 		is_number = True
 		for i in range (0, len(_var_name)):
@@ -119,7 +119,7 @@ class vars:
 			if _v._show_information:
 				print "{} = {} in [{}, {}]". format (_v._name, value, _min, _max) 
 		return ""
-	def get_string(self, _var_name, _sys_argv):
+	def get_string(self, _var_name, _sys_argv): # get a new random value of a variable including suffix and prefix
 		#print "_var_name = {}".format(_var_name)
 		is_number = True
 		for i in range (0, len(_var_name)):
@@ -139,13 +139,13 @@ class vars:
 			exit()
 		_v = self._var[_var_name]
 		return _v._prefix + str(self.get(_var_name, _sys_argv)) + _v._suffix
-def cast (s, t):
+def cast (s, t): # cast string s into type t if possible
 	if (s[0] == "$"): return s
 	if t == "int": return int(s)
 	if t == "float": return float(s)
 	if t == "char": return s[:1]
 	return s
-def read_file (_path):
+def read_file (_path): # read the configuration file and return _vars as vars type
 	# open the file
 	_f = open (_path)
 
